@@ -117,7 +117,8 @@ handle_call(stop, _From, _Friends) ->
 %%% the default behavior here is sufficient for this example.
 %%%--------
 % handle_cast(_Msg, State) -> {noreply, State}.
-handle_cast({add, Friend}, Friends) -> {noreply, [Friend] ++ Friends};
+handle_cast({add, Friend}, Friends) when Friend /= nil -> {noreply, [Friend] ++ Friends};
+handle_cast({add, _Friend}, Friends) -> {noreply, Friends};
 handle_cast({remove, Friend}, Friends) -> {noreply, lists:delete(Friend, Friends)};
 handle_cast(clear, _Friends) -> {noreply, []}.
 
@@ -132,7 +133,7 @@ code_change(_OldVsn, State, _Extra) ->
 
 handle_call_test_()->
   [
-   ?_assertEqual({reply,{ok,[joe,sally,grace]}},friends_storage:handle_call(list,somewhere,[joe,sally,grace]))%happy path
+   ?_assertEqual({reply,{ok,[joe,sally,grace]},[joe,sally,grace]},friends_storage:handle_call(list,somewhere,[joe,sally,grace]))%happy path
    ].
 
    
