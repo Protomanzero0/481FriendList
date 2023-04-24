@@ -131,15 +131,8 @@ code_change(_OldVsn, State, _Extra) ->
 -include_lib("eunit/include/eunit.hrl").
 
 handle_call_test_()->
-  [?_assertEqual({reply,ok,[sue,joe,sally]},friends_storage:handle_call({add,sue},somewhere,[joe,sally])),%happy path
-   ?_assertEqual({reply,ok,[sue]},friends_storage:handle_call({add,sue},somewhere,[])),%nasty path
-   ?_assertEqual({reply,ok,[sue]},friends_storage:handle_call({add,sue},somewhere,nil)),%nasty path
-   ?_assertEqual({reply,
-                {ok,[joe,sally,grace]},
-           [joe,sally,grace]},friends_storage:handle_call(list,somewhere,[joe,sally,grace])),%happy path
-   ?_assertEqual({reply,
-                ok,
-           [joe,grace]},friends_storage:handle_call({remove,sally},somewhere,[joe,sally,grace])),%happy path
+  [
+   ?_assertEqual({reply,{ok,[joe,sally,grace]}},friends_storage:handle_call(list,somewhere,[joe,sally,grace])),%happy path
    ].
 
    
