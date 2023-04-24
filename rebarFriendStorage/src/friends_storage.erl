@@ -132,7 +132,7 @@ code_change(_OldVsn, State, _Extra) ->
 
 handle_call_test_()->
   [
-   ?_assertEqual({reply,{ok,[joe,sally,grace]}},friends_storage:handle_call(list,somewhere,[joe,sally,grace])),%happy path
+   ?_assertEqual({reply,{ok,[joe,sally,grace]}},friends_storage:handle_call(list,somewhere,[joe,sally,grace]))%happy path
    ].
 
    
@@ -141,7 +141,7 @@ handle_cast_test_()->
      ?_assertEqual({noreply,[sue]},friends_storage:handle_cast({add,sue},[])),%nasty path
      ?_assertEqual({noreply,[sue]},friends_storage:handle_cast({add,sue},nil)),%nasty path
      ?_assertEqual({noreply,[]}, friends_storage:handle_cast(clear, [joe,sue,sally])),
-     ?_assertEqual({noreply,[joe,grace]},friends_storage:handle_cast({remove,sally},[joe,sally,grace])),%happy path
+     ?_assertEqual({noreply,[joe,grace]},friends_storage:handle_cast({remove,sally},[joe,sally,grace]))%happy path
      ].
 %component_level_test_()->{
 %  setup,
